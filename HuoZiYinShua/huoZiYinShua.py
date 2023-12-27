@@ -242,8 +242,8 @@ class huoZiYinShua:
 			self.__concatenated = np.flip(self.__concatenated)
 
 		#如果缺失拼音，则发出警告
-		if len(missingPinyin) != 0:
-			print("警告：缺失或未定义{}".format(missingPinyin))
+		#if len(missingPinyin) != 0:
+		#	print("警告：缺失或未定义{}".format(missingPinyin))
 
 
 	
