@@ -206,7 +206,8 @@ class huoZiYinShua:
 																			norm)))
 						#如果出现错误
 						except Exception as e:
-							print(e)		#显示错误信息
+							if word != "，":
+								print(e)		#显示错误信息
 							#加入缺失素材列表
 							if word not in missingPinyin:
 								missingPinyin.append(word)
