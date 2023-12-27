@@ -94,13 +94,9 @@ def _modifyPitchAndSpeed(data, pitchMultiple, speedMultiple):
 #活字印刷类
 #--------------------------------------------
 class huoZiYinShua:
-	def __init__(self, configFileLoc):
+	def __init__(self, configuration):
 		try:
 			#读取设置文件
-			configFile = open(configFileLoc, encoding="utf8")
-			configuration = json.load(configFile)
-			configFile.close()
-
 			dictFile = open(configuration["dictFile"], encoding="utf8")					#读取单字词典 (json)
 			ysddTableFile = open(configuration["ysddTableFile"], encoding="utf8")		#读取原声大碟文本与文件名对照表 (json)
 
