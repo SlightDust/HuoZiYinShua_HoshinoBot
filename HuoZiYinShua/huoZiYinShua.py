@@ -221,8 +221,7 @@ class huoZiYinShua:
 				try:
 					self.__concatenated = np.concatenate((self.__concatenated,
 														_loadAudio(self.__ysddPath
-																	+ self.__ysddTable[pronunciations[i][0]]
-																	+ ".wav",
+																	+ self.__ysddTable[pronunciations[i][0]],
 																	norm)))
 				#如果出现错误
 				except Exception as e:
