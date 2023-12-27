@@ -5,10 +5,11 @@
 import soundfile as sf
 import psola
 import numpy as np
-from playsound import playsound
 from pypinyin import lazy_pinyin
 import json
 from pathlib import Path
+from io import BytesIO
+import base64
 
 
 
@@ -134,21 +135,12 @@ class huoZiYinShua:
 
 
 	
-	#直接导出
-	def export(self, rawData, filePath="./Output.wav", inYsddMode=False,
+	#返回b64音频
+	def export(self, rawData, inYsddMode=False,
 				pitchMult=1, speedMult=1, norm=False, reverse=False):		
 		self.__concatenate(rawData, inYsddMode, pitchMult, speedMult, norm, reverse)
-		self.__export(filePath)
-		print("已导出到" + filePath + "下")
-	
-	
-	
-	#直接播放
-	def directPlay(self, rawData, tempPath="./HZYSTempOutput/temp.wav",
-					inYsddMode=False, pitchMult=1, speedMult=1, norm=False, reverse=False):
-		self.__concatenate(rawData, inYsddMode, pitchMult, speedMult, norm, reverse)
-		self.__export(tempPath)
-		playsound(tempPath)
+		base64_data = base64.b64encode(self.__export().getvalue())
+		return base64_data
 	
 	
 	
@@ -259,9 +251,8 @@ class huoZiYinShua:
 
 
 	
-	#导出wav文件
-	def __export(self, filePath):
-		folderPath = _fileName2FolderName(filePath)
-		if not Path(folderPath).exists():
-			Path(folderPath).mkdir()
-		sf.write(filePath, self.__concatenated, _targetSR)
+	#返回二进制音频
+	def __export(self):
+		bytesout = BytesIO()
+		sf.write(bytesout, self.__concatenated, _targetSR, format="MP3")
+		return bytesout
