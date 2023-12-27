@@ -1,0 +1,6 @@
+{
+	"sourceDirectory": "./HuoZiYinShua/sources/",
+	"ysddSourceDirectory": "./HuoZiYinShua/ysddSources/",
+	"dictFile": "./HuoZiYinShua/dictionary.json",
+	"ysddTableFile": "./HuoZiYinShua/ysddTable.json"
+}
