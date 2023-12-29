@@ -1,4 +1,5 @@
 import os
+import re
 
 from nonebot import MessageSegment
 
@@ -29,8 +30,19 @@ sv = Service(
 
 @sv.on_prefix("otto",only_to_me=False)
 async def ottohzys(bot, ev):
-    txt = ev.message.extract_plain_text() + "，，，" # 加一段空白
-    b64audio = HZYS.export(txt,inYsddMode=True)
+    txt = ev.message.extract_plain_text()
+    pattern_reverse = re.compile(u'-reverse\s*$')
+    
+    if isinstance(re.search(pattern_reverse, txt), (re.Match)):
+        # 结尾匹配到 -reverse
+        reverse = True
+        txt = re.sub(pattern_reverse, "", txt)
+        txt = "，，，" + txt  # 加一段空白
+    else:
+        reverse = False
+        txt = txt + "，，，" # 加一段空白
+    
+    b64audio = HZYS.export(txt,inYsddMode=True,reverse=reverse)
     await bot.send(ev, MessageSegment.record(f"base64://{b64audio.decode()}"))
 
 
